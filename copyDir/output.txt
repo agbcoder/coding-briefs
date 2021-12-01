@@ -1,0 +1,95 @@
+Output sample:
+
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ rm -rf kk2
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ tree kk1 kk2
+kk1
+├── myExample
+└── zz
+    ├── ex1.txt
+    └── yy
+kk2 [error opening dir]
+
+2 directories, 2 files
+
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ ./copyDir kk1 kk2
+Proceeding to copy different files from kk1 to kk2
+Destination dir missing, creating it.
+Source dir entries:   (isDir - Size - Name)
+0 -           0 - myExample
+1 -        4096 - zz
+
+Dest   dir entries:   (isDir - Size - Name)
+
+Entering recursion for dir zz
+Destination dir missing, creating it.
+Source dir entries:   (isDir - Size - Name)
+0 -          23 - ex1.txt
+1 -        4096 - yy
+
+Dest   dir entries:   (isDir - Size - Name)
+
+Entering recursion for dir yy
+Destination dir missing, creating it.
+Source dir entries:   (isDir - Size - Name)
+
+Dest   dir entries:   (isDir - Size - Name)
+
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ tree kk1 kk2
+kk1
+├── myExample
+└── zz
+    ├── ex1.txt
+    └── yy
+kk2
+├── myExample
+└── zz
+    ├── ex1.txt
+    └── yy
+
+4 directories, 4 files
+
+
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ mv kk2/zz/ex1.txt kk2/zz/ex2.txt
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ ./copyDir kk1 kk2
+Proceeding to copy different files from kk1 to kk2
+Source dir entries:   (isDir - Size - Name)
+0 -           0 - myExample
+1 -        4096 - zz
+
+Dest   dir entries:   (isDir - Size - Name)
+0 -           0 - myExample
+
+myExample in source dir is same size than myExample in dest dir. Size=0
+MD5 sum: d41d8cd98f00b204e9800998ecf8427e - kk1/myExample
+MD5 sum: d41d8cd98f00b204e9800998ecf8427e - kk2/myExample
+Skipping myExample; same MD5 than myExample
+Entering recursion for dir zz
+Source dir entries:   (isDir - Size - Name)
+0 -          23 - ex1.txt
+1 -        4096 - yy
+
+Dest   dir entries:   (isDir - Size - Name)
+0 -          23 - ex2.txt
+
+ex1.txt in source dir is same size than ex2.txt in dest dir. Size=23
+MD5 sum: 5c43aa1dc1b82eaf45be5de480de2b0e - kk1/zz/ex1.txt
+MD5 sum: 5c43aa1dc1b82eaf45be5de480de2b0e - kk2/zz/ex2.txt
+Skipping ex1.txt; same MD5 than ex2.txt
+Entering recursion for dir yy
+Source dir entries:   (isDir - Size - Name)
+
+Dest   dir entries:   (isDir - Size - Name)
+
+antonio@antonio-Z390:~/odevel/legacy/copyDir $ tree kk1 kk2
+kk1
+├── myExample
+└── zz
+    ├── ex1.txt
+    └── yy
+kk2
+├── myExample
+└── zz
+    ├── ex2.txt
+    └── yy
+
+4 directories, 4 files
